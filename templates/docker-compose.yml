@@ -1,6 +1,6 @@
 version: '3.1'
 services:
-  jenkins_service:
+  rtail:
     image: anmolnagpal/docker-rtail
     container_name: rtail
     environment:
@@ -14,12 +14,8 @@ services:
         hard: 165536
     cap_add:
       - ALL
-    volumes:
-      - {{ jenkins_tmp_dir }}:/tmp/jenkins
-      - {{ jenkins_config_dir }}:/var/config/jenkins
-      - {{ jenkins_data_dir }}:/var/lib/jenkins
     ports:
-      - {{ jenkins_http_port }}:{{ jenkins_http_port }}
-      - {{ jenkins_https_port }}:{{ jenkins_https_port }}
-      - {{ jenkins_agent_port }}:{{ jenkins_agent_port }}
+      - {{ rtail_http_port }}:{{ rtail_http_port }}
+      - {{ rtail_https_port }}:{{ rtail_https_port }}
+      - {{ rtail_agent_port }}:{{ rtail_agent_port }}
     network_mode: host
