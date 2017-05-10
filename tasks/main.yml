@@ -1,0 +1,43 @@
+---
+- name: users jenkins
+  include: users.yml
+  tags:
+    - jenkins
+    - jenkins-install
+    - jenkins-config
+
+- name: configure jenkins
+  include: configure.yml
+  tags:
+    - jenkins
+    - jenkins-install
+    - jenkins-config
+
+- name: install docker jenkins
+  include: install.yml
+  tags:
+    - jenkins
+    - jenkins-install
+    - jenkins-docker-jenkins
+
+- name: start docker jenkins
+  include: started.yml
+  tags:
+    - jenkins
+    - jenkins-install
+    - jenkins-docker-jenkins
+
+# Update Jenkins and install configured plugins.
+#- include: plugins.yml
+#  tags:
+#    - jenkins
+#    - jenkins-plugins
+#    - jenkins-docker-jenkins
+
+- include: keys.yml
+  when: copy_jenkins_key is defined
+  tags:
+    - jenkins
+    - jenkins-plugins
+    - jenkins-keys
+    - jenkins-docker-jenkins

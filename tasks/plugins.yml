@@ -1,0 +1,57 @@
+---
+- name: force all notified handlers to run at this point, not waiting for normal sync points
+  meta: flush_handlers
+
+- name: wait for Jenkins to start up before proceeding.
+  shell: "curl -D - --silent http://{{ jenkins_hostname }}:{{ jenkins_http_port }}{{ jenkins_url_prefix }}/cli/"
+  register: result
+  until: (result.stdout.find("403 Forbidden") != -1) or (result.stdout.find("200 OK") != -1) and (result.stdout.find("Please wait while") == -1)
+  retries: "{{ jenkins_connection_retries }}"
+  delay: "{{ jenkins_connection_delay }}"
+  changed_when: false
+  tags:
+    - full-deploy
+
+- name: get the jenkins-cli jarfile from the Jenkins server.
+  get_url:
+    url: "http://{{ jenkins_hostname }}:{{ jenkins_http_port }}{{ jenkins_url_prefix }}/jnlpJars/jenkins-cli.jar"
+    dest: "{{ jenkins_jar_location }}"
+  register: jarfile_get
+  until: "'OK' in jarfile_get.msg or 'file already exists' in jarfile_get.msg"
+  retries: 5
+  delay: 10
+  tags:
+    - full-deploy
+
+
+- name: Update Jenkins plugin data.
+  shell: >
+    curl -L https://updates.jenkins-ci.org/update-center.json | sed '1d;$d' > /var/lib/jenkins/updates/default.json
+    creates=/var/lib/jenkins/updates/default.json
+  tags:
+    - jenkins
+    - jenkins-plugin-update
+    - jenkins-default
+
+- name: Permissions for default.json updates info.
+  file:
+    path: /var/lib/jenkins/updates/default.json
+    owner: jenkins
+    group: jenkins
+    mode: 0755
+  tags:
+    - permissions
+    - jenkins-permissions
+    - jenkins-plugin-update
+    - jenkins-default
+
+- name: Install Jenkins plugins.
+  with_items: "{{ jenkins_plugins }}"
+  become: yes
+  get_url: dest="{{ jenkins_home }}/plugins/{{ item | mandatory }}.jpi"
+           url="https://updates.jenkins-ci.org/latest/{{ item }}.hpi"
+           owner=jenkins group=jenkins mode=0644 validate_certs=no
+  notify: restart jenkins
+  tags:
+    - jenkins
+    - jenkins-setup-plugins

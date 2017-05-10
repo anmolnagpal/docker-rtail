@@ -1,0 +1,5 @@
+---
+- name: ensure jenkins docker-compose started
+  shell: /bin/true
+  notify:
+    - start docker-compose-jenkins

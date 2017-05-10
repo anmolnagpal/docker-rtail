@@ -1,0 +1,25 @@
+version: '3.1'
+services:
+  jenkins_service:
+    image: anmolnagpal/docker-rtail
+    container_name: rtail
+    environment:
+    privileged: true
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 165536
+        hard: 165536
+    cap_add:
+      - ALL
+    volumes:
+      - {{ jenkins_tmp_dir }}:/tmp/jenkins
+      - {{ jenkins_config_dir }}:/var/config/jenkins
+      - {{ jenkins_data_dir }}:/var/lib/jenkins
+    ports:
+      - {{ jenkins_http_port }}:{{ jenkins_http_port }}
+      - {{ jenkins_https_port }}:{{ jenkins_https_port }}
+      - {{ jenkins_agent_port }}:{{ jenkins_agent_port }}
+    network_mode: host
