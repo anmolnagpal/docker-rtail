@@ -1,19 +1,19 @@
 ---
-- name: start docker-compose-jenkins
+- name: start docker-compose-rtail
   become: true
   docker_service:
-    project_src: "{{ jenkins_opt_dir }}"
+    project_src: "{{ rtail_opt_dir }}"
     state: present
 
-- name: restart docker-compose-jenkins
+- name: restart docker-compose-rtail
   become: true
   docker_service:
-    project_src: "{{ jenkins_opt_dir }}"
+    project_src: "{{ rtail_opt_dir }}"
     state: present
     restarted: yes
 
-- name: stop docker-compose-jenkins
+- name: stop docker-compose-rtail
   become: true
   docker_service:
-    project_src: "{{ jenkins_opt_dir }}"
+    project_src: "{{ rtail_opt_dir }}"
     state: absent

@@ -1,43 +1,43 @@
 ---
-- name: users jenkins
+- name: users rtail
   include: users.yml
   tags:
-    - jenkins
-    - jenkins-install
-    - jenkins-config
+    - rtail
+    - rtail-install
+    - rtail-config
 
-- name: configure jenkins
+- name: configure rtail
   include: configure.yml
   tags:
-    - jenkins
-    - jenkins-install
-    - jenkins-config
+    - rtail
+    - rtail-install
+    - rtail-config
 
-- name: install docker jenkins
+- name: install docker rtail
   include: install.yml
   tags:
-    - jenkins
-    - jenkins-install
-    - jenkins-docker-jenkins
+    - rtail
+    - rtail-install
+    - rtail-docker-rtail
 
-- name: start docker jenkins
+- name: start docker rtail
   include: started.yml
   tags:
-    - jenkins
-    - jenkins-install
-    - jenkins-docker-jenkins
+    - rtail
+    - rtail-install
+    - rtail-docker-rtail
 
-# Update Jenkins and install configured plugins.
+# Update rtail and install configured plugins.
 #- include: plugins.yml
 #  tags:
-#    - jenkins
-#    - jenkins-plugins
-#    - jenkins-docker-jenkins
+#    - rtail
+#    - rtail-plugins
+#    - rtail-docker-rtail
 
 - include: keys.yml
-  when: copy_jenkins_key is defined
+  when: copy_rtail_key is defined
   tags:
-    - jenkins
-    - jenkins-plugins
-    - jenkins-keys
-    - jenkins-docker-jenkins
+    - rtail
+    - rtail-plugins
+    - rtail-keys
+    - rtail-docker-rtail

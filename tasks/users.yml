@@ -1,14 +1,14 @@
 ---
 - name: setup group
-  group: name="{{ jenkins_group }}" system=no
+  group: name="{{ rtail_group }}" system=no
   tags:
-    - jenkins
-    - jenkins-install
-    - jenkins-user
+    - rtail
+    - rtail-install
+    - rtail-user
 
 - name: setup user
-  user: name="{{ jenkins_user }}" system=no group="{{ jenkins_group }}"
+  user: name="{{ rtail_user }}" system=no group="{{ rtail_group }}"
   tags:
-    - jenkins
-    - jenkins-install
-    - jenkins-user
+    - rtail
+    - rtail-install
+    - rtail-user

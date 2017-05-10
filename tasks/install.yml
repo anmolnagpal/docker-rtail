@@ -1,14 +1,14 @@
 ---
-- name: copy jenkins docker-compose file
+- name: copy rtail docker-compose file
   template:
-     dest="{{ jenkins_opt_dir }}/docker-compose.yml"
-     owner="{{ jenkins_user }}"
-     group="{{ jenkins_group }}"
+     dest="{{ rtail_opt_dir }}/docker-compose.yml"
+     owner="{{ rtail_user }}"
+     group="{{ rtail_group }}"
      mode=777
      src=docker-compose.yml
   tags:
-    - jenkins
-    - jenkins-install
-    - jenkins-docker-compose
-    - jenkins-config
-    - jenkins-config-main
+    - rtail
+    - rtail-install
+    - rtail-docker-compose
+    - rtail-config
+    - rtail-config-main

@@ -1,14 +1,14 @@
 ---
 
 - name: Ensure ssh keys folder exist
-  file: path=/var/lib/jenkins/keys/ state=directory owner=jenkins group=jenkins mode=0700
+  file: path=/var/lib/rtail/keys/ state=directory owner=rtail group=rtail mode=0700
   tags:
-    - jenkins-ssh
-    - jenkins-ssh-keys
+    - rtail-ssh
+    - rtail-ssh-keys
 
-- name: transfer jenkins keys
-  copy: src={{ item }} dest=/var/lib/jenkins/keys/{{ item | basename }} owner=jenkins group=jenkins mode=0600 force=yes
+- name: transfer rtail keys
+  copy: src={{ item }} dest=/var/lib/rtail/keys/{{ item | basename }} owner=rtail group=rtail mode=0600 force=yes
   with_items:
-    - ../../../ssh/jenkins-key.pem
+    - ../../../ssh/rtail-key.pem
   tags:
-    - jenkins-transfer
+    - rtail-transfer

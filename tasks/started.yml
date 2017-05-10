@@ -1,5 +1,5 @@
 ---
-- name: ensure jenkins docker-compose started
+- name: ensure rtail docker-compose started
   shell: /bin/true
   notify:
-    - start docker-compose-jenkins
+    - start docker-compose-rtail

@@ -1,35 +1,35 @@
 ---
-- name: create jenkins dirs
+- name: create rtail dirs
   file:
     path="{{ item|safe|trim }}"
     state=directory
-    owner="{{ jenkins_user }}"
-    group="{{ jenkins_group }}"
+    owner="{{ rtail_user }}"
+    group="{{ rtail_group }}"
     mode=777
     recurse=yes
   changed_when: false
   with_items:
-    - "{{ jenkins_opt_dir }}"
-    - "{{ jenkins_config_dir }}"
-    - "{{ jenkins_tmp_dir }}"
-    - "{{ jenkins_data_dir }}"
+    - "{{ rtail_opt_dir }}"
+    - "{{ rtail_config_dir }}"
+    - "{{ rtail_tmp_dir }}"
+    - "{{ rtail_data_dir }}"
   tags:
-    - jenkins
-    - jenkins-install
-    - jenkins-config-main
+    - rtail
+    - rtail-install
+    - rtail-config-main
 
 - name: transfer ssl crt (tajawal-sub-domain-chained.crt) configuration
-  template: src={{ item }} dest={{ jenkins_config_dir }}/{{ item | basename }} force=yes mode=755
+  template: src={{ item }} dest={{ rtail_config_dir }}/{{ item | basename }} force=yes mode=755
   with_fileglob:
     - ./../ssl/*tajawal.io/*.crt
   tags:
-    - jenkins-ssl-certs
-    - jenkins-transfer-ssl-crt
+    - rtail-ssl-certs
+    - rtail-transfer-ssl-crt
 
 - name: transfer ssl pem (tajawal-sub-domain-private-key.pem) configuration
-  template: src={{ item }} dest={{ jenkins_config_dir }}/{{ item | basename }} force=yes mode=755
+  template: src={{ item }} dest={{ rtail_config_dir }}/{{ item | basename }} force=yes mode=755
   with_fileglob:
       - ./../ssl/*tajawal.io/*-key.pem
   tags:
-    - jenkins
-    - jenkins-transfer-ssl-pem
+    - rtail
+    - rtail-transfer-ssl-pem
