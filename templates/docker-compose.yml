@@ -17,5 +17,5 @@ services:
     ports:
       - {{ rtail_http_port }}:{{ rtail_http_port }}
       - {{ rtail_https_port }}:{{ rtail_https_port }}
-      - {{ rtail_agent_port }}:{{ rtail_agent_port }}
+      - {{ rtail_agent_port }}:{{ rtail_agent_port }}/udp
     network_mode: host
