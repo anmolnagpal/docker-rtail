@@ -5,3 +5,4 @@ rtail_hostname: localhost
 rtail_http_port: "8181"
 rtail_https_port: "8443"
 rtail_agent_port: "9191"
+rtail_opt_dir: "/opt/rtail"

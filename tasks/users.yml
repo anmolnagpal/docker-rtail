@@ -3,12 +3,8 @@
   group: name="{{ rtail_group }}" system=no
   tags:
     - rtail
-    - rtail-install
-    - rtail-user
 
 - name: setup user
   user: name="{{ rtail_user }}" system=no group="{{ rtail_group }}"
   tags:
     - rtail
-    - rtail-install
-    - rtail-user
