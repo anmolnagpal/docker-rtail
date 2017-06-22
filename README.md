@@ -8,7 +8,7 @@ UDP is stateless and is used instead of TCP because has better performance.
 There is no persistent layer, nor does the tool store any data.
 
 This Docker Container exposes a Web Server in the 8181 port and listen on 9191 port for UDP traffic.
-For further information, check out the [project webpage](https://github.com/kilianc/rtail).
+For further information, check out the [project webpage](https://github.com/anmolnagpal/docker-rtail).
 
 Both 8181 and 9191 ports are open without authentication. The recomendation is to apply some filter rule in the Firewall.
 
@@ -23,15 +23,15 @@ __rTail Server__
 ## 1. Getting started
 
 ```bash
-$ git clone https://github.com/chilcano/docker-rtail-server.git
+$ git clone https://github.com/anmolnagpal/docker-rtail.git
 
-$ cd docker-rtail-server
+$ cd docker-rtail
 
 // Build image
-$ docker build --rm -t chilcano/rtail-server .
+$ docker build --rm -t anmolnagpal/rtail .
 
 // Run container
-$ docker run -d -t --name=rtail-srv -p 8181:8181 -p 9191:9191/udp chilcano/rtail-server
+$ docker run -d -t --name=rtail -p 8181:8181 -p 9191:9191/udp anmolnagpal/rtail
 ```
 
 __Check the rTail Server__
@@ -50,17 +50,13 @@ To stop, start or restart rTail Server just stop, start or restart the Docker co
 __Get Shell access to rTail Server Container__
 
 ```bash
-$ docker exec -i -t rtail-srv bash
+$ docker exec -i -t rtail bash
 ```
 
 ## 2. Send log events to rTail Server Docker Container
 
 You can send any type of log events, from a syslog event, an echo message or a log by tailing. Before, you have to install rTail application again in the You can send any type of log events, from a syslog event, an echo message or a log by tailing. Before, you have to install rTail application again in the box/VM from where you want send log events.
-I have created a [Puppet module for rTail](https://github.com/chilcano/vagrant-wso2-dev-srv/tree/master/provision/wso2-stack-srv/puppet/modules/rtail_sender) and I have included It to the Vagrant box to have the rTail (client) ready to be used.
 
-To get a Vagrant box with rTail (client) pre-installed, you could use these Vagrant scripts ([https://github.com/chilcano/vagrant-wso2-dev-srv](https://github.com/chilcano/vagrant-wso2-dev-srv)).
-
-If you have the [vagrant-wso2-dev-srv](https://github.com/chilcano/vagrant-wso2-dev-srv) running, then follow the below examples to send log events to rTail Server Docker Container:
 
 For example, to send the `ping` traces, execute the next:
 
